@@ -59,6 +59,24 @@ Now you should be able to access the application at `http://localhost:8000`.
 - **Bootstrap** 💅
 - **Tailwind CSS** 🎨
 
+## 📊 Development Activity
+
+Check out the development activity on Wakatime for detailed statistics on coding time and progress:
+
+[**Wakatime Activity Report (Jan 6, 2025 - Jan 12, 2025)**](https://wakatime.com/@sonyadi/projects/seqpvmamjl?start=2025-01-06&end=2025-01-12)
+
+## 📸 Screenshots
+
+Here are some screenshots of the COBIT5 Management System:
+
+![Login Page](https://via.placeholder.com/800x400.png?text=Login+Page)
+_**Login Page:**_ The user-friendly login screen for easy access.
+
+![Dashboard](https://via.placeholder.com/800x400.png?text=Dashboard)
+_**Dashboard:**_ The main dashboard showing the management interface.
+
+*Feel free to replace the placeholders with your actual screenshots.*
+
 ## 👥 Contributing
 
 We welcome contributions to make the system even better! Feel free to fork the repo, make changes, and submit a pull request. 
@@ -78,5 +96,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ✨ **COBIT5 Management System** is built to help you streamline governance, risk, and compliance. Let's make IT better together! ✨
-
-https://wakatime.com/@sonyadi/projects/seqpvmamjl?start=2025-01-06&end=2025-01-12
