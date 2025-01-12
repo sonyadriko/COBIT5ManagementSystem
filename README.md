@@ -53,11 +53,9 @@ Now you should be able to access the application at `http://localhost:8000`.
 ## 🔑 Technologies Used
 
 - **PHP (Laravel 11)** 🖥️
-- **Auth0** 🔐
 - **MySQL** 🗄️
-- **JavaScript (Vue.js)** 🎨
+- **JavaScript** 🎨
 - **Bootstrap** 💅
-- **Tailwind CSS** 🎨
 
 ## 📊 Development Activity
 
