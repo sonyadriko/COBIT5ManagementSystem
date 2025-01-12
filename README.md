@@ -77,7 +77,13 @@ _**Login Page:**_ The user-friendly login screen for easy access.
 
 _**Dashboard:**_ The main dashboard showing the management interface.
 
-*Feel free to replace the placeholders with your actual screenshots.*
+![image](https://github.com/user-attachments/assets/d1ab6437-75ca-4fdd-a396-5eb7f486b95b)
+
+_**Audit Project:**_ A page that displays the audit processes of various projects.
+
+![image](https://github.com/user-attachments/assets/7c9c2dcc-dbac-4ef3-a4f1-22d6c67c5206)
+
+_**Audit Detail:**_ A page dedicated to detailed testing and verification during the audit process.
 
 ## 👥 Contributing
 
