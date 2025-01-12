@@ -69,10 +69,12 @@ Check out the development activity on Wakatime for detailed statistics on coding
 
 Here are some screenshots of the COBIT5 Management System:
 
-![Login Page](https://via.placeholder.com/800x400.png?text=Login+Page)
+![image](https://github.com/user-attachments/assets/3fa8b697-1ce8-4850-b9e3-28ff39c9c48c)
+
 _**Login Page:**_ The user-friendly login screen for easy access.
 
-![Dashboard](https://via.placeholder.com/800x400.png?text=Dashboard)
+![image](https://github.com/user-attachments/assets/1e7e2ca2-e044-4f08-87b0-6969eb463918)
+
 _**Dashboard:**_ The main dashboard showing the management interface.
 
 *Feel free to replace the placeholders with your actual screenshots.*
