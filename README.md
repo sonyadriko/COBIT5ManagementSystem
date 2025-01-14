@@ -52,7 +52,7 @@ Now you should be able to access the application at `http://localhost:8000`.
 
 ## 🔑 Technologies Used
 
-- **PHP (Laravel 11)** 🖥️
+- **PHP (Laravel 10)** 🖥️
 - **MySQL** 🗄️
 - **JavaScript** 🎨
 - **Bootstrap** 💅
