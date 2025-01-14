@@ -101,7 +101,7 @@ class ProjectController extends Controller
         return redirect()->route('projects.audit', $id_project)->with('success', 'Audit deleted successfully!');
     }
 
-    public function auditProject($id)
+    public function auditProject($id_project, $id)
     {
        // Fetch audit details based on id
         $audit = ProjectAudit::findOrFail($id);
@@ -121,11 +121,13 @@ class ProjectController extends Controller
         }
         $groupedQuestions = $questions->groupBy('pa');
 
+        $idProject = $id_project;
 
-        return view('projects.audit-detail', compact('audit', 'auditProcess', 'groupedQuestions'));
+
+        return view('projects.audit-detail', compact('audit', 'auditProcess', 'groupedQuestions', 'idProject'));
     }
 
-    public function storeAuditDetail(Request $request, $id)
+    public function storeAuditDetail(Request $request, $id_project, $id)
     {
         $request->validate([
             'id_project_audit' => 'required|integer',
@@ -139,7 +141,7 @@ class ProjectController extends Controller
         $averageScore = 0;
         $category = '';
 
-        Log::info("Starting storeAuditDetail process for Project Audit ID: {$id}");
+        // Log::info("Starting storeAuditDetail process for Project Audit ID: {$id}");
 
         // Looping untuk menyimpan data detail audit
         foreach ($request->input('id_question') as $index => $questionId) {
@@ -149,12 +151,12 @@ class ProjectController extends Controller
             $score = ($exist == 1) ? 100 : 0;
             $totalScore += $score;
 
-             // Log for debugging
-            Log::info("Received question data", [
-                'id_question' => $request->input('id_question'),
-                'exist' => $request->input('exist'),
-                'document_evidence' => $request->input('document_evidence'),
-            ]);
+            // Log for debugging
+            // Log::info("Received question data", [
+            //     'id_question' => $request->input('id_question'),
+            //     'exist' => $request->input('exist'),
+            //     'document_evidence' => $request->input('document_evidence'),
+            // ]);
 
             AuditDetail::create([
                 'id_project_audit' => $request->input('id_project_audit'),
@@ -184,7 +186,7 @@ class ProjectController extends Controller
             $category = 'N';
         }
 
-        Log::info("Determined category: {$category}");
+        // Log::info("Determined category: {$category}");
 
         $audit = ProjectAudit::find($request->input('id_project_audit'));
 
@@ -214,26 +216,9 @@ class ProjectController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Audit already at maximum level. No level change.',
-                    'redirect' => 'projects.index' // Tetap reload halaman untuk memperbarui UI
+                    'redirect' => route('projects.audit', $id_project), // Tetap reload halaman untuk memperbarui UI
                 ], 200);
             }
-            // $audit->level += 1;
-            // $audit->save();
-
-            // // Simpan skor dan kategori ke session
-            // session()->flash('totalScore', $totalScore);
-            // session()->flash('averageScore', $averageScore);
-            // session()->flash('category', $category);
-
-            // Log::info("Audit level updated to: {$audit->level}");
-
-            // // return redirect()->route('projects.audit.detail', $audit->id_project_audit)
-            // //     ->with('success', 'Audit updated. Level increased.');
-            // return response()->json([
-            //     'status' => 'success',
-            //     'message' => 'Audit updated successfully. Level increased.',
-            //     'redirect' => 'reload' // Tanda untuk reload halaman
-            // ], 200);
         } elseif ($category === 'N') {
             // Kurangi level jika kategori N
             $audit->level = max(0, $audit->level - 1); // Pastikan level tidak negatif
@@ -249,43 +234,43 @@ class ProjectController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Audit updated successfully. Level decreased.',
-                'redirect' => 'projects.index' // Tanda untuk reload halaman
+                'redirect' => route('projects.audit', $id_project), // Tanda untuk reload halaman
+            ], 200);
+        } elseif ($category === 'P') {
+            // Kurangi level jika kategori N
+            $audit->level = max(0, $audit->level - 1); // Pastikan level tidak negatif
+            $audit->status = "completed";
+            $audit->save();
+
+            session()->flash('totalScore', $totalScore);
+            session()->flash('averageScore', $averageScore);
+            session()->flash('category', $category);
+
+            // Log::info("Audit level decreased to: {$audit->level}");
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Audit updated successfully. Level decreased.',
+                'redirect' => route('projects.audit', $id_project), // Tanda untuk reload halaman
             ], 200);
         }
 
-        Log::info("Audit saved without level update. Redirecting to projects.index");
+        // Log::info("Audit saved without level update. Redirecting to projects.index");
 
         $audit->status = "completed";
         $audit->save();
         return response()->json([
             'status' => 'success',
             'message' => 'Audit updated successfully. Level increased.',
-            'redirect' => 'projects.index' // Tanda untuk mengarah ke halaman projects.index
+            'redirect' => route('projects.audit', $id_project),// Tanda untuk mengarah ke halaman projects.index
         ], 200);
-        // return redirect()->route('projects.index')
-        //     ->with('success', 'Audit saved without level update.');
     }
 
     public function showReport($id_project)
     {
         // Fetch data from ProjectAudit by id_project
         $projectAudits = ProjectAudit::where('id_project', $id_project)->get();
-        // dd($projectAudits);
         $project = Project::where('id_project', $id_project)->first ();
-        // dd($project);
-
-
-        // Fetch audit details related to the project
-        // $auditDetails = AuditDetail::whereIn('id_project_audit', $projectAudits->pluck('id_project_audit'))
-        //     ->with('question')
-        //     ->get();
-        // $auditDetails = AuditDetail::whereIn('id_project_audit', $projectAudits->pluck('id_project_audit'))
-        //     ->join('questions', 'audit_details.id_question', '=', 'questions.id_question')
-        //     ->select('audit_details.*', 'questions.question', 'questions.process_code') // Ambil audit_process dari questions
-        //     ->get();
-
-        //        // Kelompokkan data berdasarkan audit_process
-        // $groupedAuditDetails = $auditDetails->groupBy('audit_process');
 
         $auditDetails = DB::table('project_audits as pa')
         ->join('audit_details as ad', 'ad.id_project_audit', '=', 'pa.id_project_audit')
@@ -296,8 +281,6 @@ class ProjectController extends Controller
         ->orderBy('ap.name')
         ->get()
         ->groupBy('audit_process'); // Group by audit process
-
-        // dd($auditDetails);
 
         // Initialize variables for calculations
         $total_fi_xi = 0; // Sum of frequency * level

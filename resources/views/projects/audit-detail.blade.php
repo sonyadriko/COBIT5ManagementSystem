@@ -20,7 +20,7 @@
                     <h4>Level: <span class="bg-primary text-white p-1">{{ $audit->level }}</span></h4><br>
 
                     <form id="auditForm" method="POST"
-                        action="{{ route('projects.audit.detail.store', $audit->id_project_audit) }}">
+                        action="{{ route('projects.audit.detail.store', ['id_project' => $idProject, 'id' => $audit->id_project_audit]) }}">
                         @csrf
                         <input type="hidden" name="id_project_audit" value="{{ $audit->id_project_audit }}">
                         <table class="table table-bordered" border="3">
@@ -54,7 +54,7 @@
                                                     value="{{ $question->id_question }}">
                                             </td>
                                             <td>
-                                                <textarea name="document_evidence[{{ $question->id_question }}]" rows="3"></textarea>
+                                                <textarea name="document_evidence[{{ $question->id_question }}]" rows="2"></textarea>
                                             </td>
                                             <!-- Kolom Total Score per PA -->
                                             @if ($index == 0)
@@ -85,35 +85,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-
-                        <!-- Input untuk Total Score Utama -->
-                        {{-- <div class="mt-3">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="totalScoreMain"><strong>Total Score Utama:</strong></label>
-                                        <input type="text" id="totalScoreMain" value="0" class="form-control"
-                                            readonly>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="categoryMain"><strong>Category Utama:</strong></label>
-                                        <input type="text" id="categoryMain" value="N/A" class="form-control"
-                                            readonly>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-
-                        {{-- <!-- Input untuk Total Score Utama -->
-                            <div>
-                                <label for="totalScoreMain">Total Score Utama:</label>
-                                <input type="text" id="totalScoreMain" value="0" readonly>
-                            </div> --}}
-
-
-                        {{-- <input type="text" id="totalScore" name="total_score" value="0" readonly disabled>
-                            <input type="text" id="totalQuestions" value="{{ count($questions) }}" readonly>
-                            <input type="text" id="averageScore" value="0" readonly disabled>
-                            <input type="text" id="category" value="0" readonly disabled> --}}
                         <div class="d-flex justify-content-end mt-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
@@ -215,11 +186,12 @@
                             localStorage.clear(); // Clear localStorage
                             $('#auditForm').find('input[type=checkbox]').prop('checked', false);
                             // Periksa apakah perlu reload atau redirect
-                            if (response.redirect === 'reload') {
-                                location.reload(); // Reload halaman jika kategori adalah 'F'
-                            } else if (response.redirect === 'projects.index') {
-                                window.location.href =
-                                    '{{ route('projects.index') }}'; // Arahkan ke projects.index
+                            if (response.redirect) {
+                                // Jika ada URL redirect yang disediakan
+                                window.location.href = response.redirect;
+                            } else {
+                                // Reload halaman jika tidak ada redirect URL
+                                location.reload();
                             }
                         } else {
                             alert('Error: ' + response.message);

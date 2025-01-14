@@ -57,7 +57,8 @@
                                             @if ($audit->status == 'completed')
                                                 <a href="" class="btn btn-sm btn-secondary me-2" disabled>Audit</a>
                                             @else
-                                                <a href="{{ route('projects.audit.detail', $audit->id_project_audit) }}"
+                                                {{-- <a href="{{ route('projects.audit.detail', $audit->id_project_audit) }}" --}}
+                                                <a href="{{ route('projects.audit.detail', ['id_project' => $project->id_project, 'id' => $audit->id_project_audit]) }}"
                                                     class="btn btn-sm btn-primary me-2">Audit</a>
                                             @endif
                                             <form

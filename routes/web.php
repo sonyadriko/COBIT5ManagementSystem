@@ -58,8 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/projects/{id}/store', [ProjectController::class, 'storeAudit'])->name('projects.audit.store');
     Route::delete('/projects/{id_project}/delete/{id}', [ProjectController::class, 'deleteAudit'])->name('projects.audit.delete');
 
-    Route::get('/projects/{id}/audit', [ProjectController::class, 'auditProject'])->name('projects.audit.detail');
-    Route::post('/projects/{id}/audit/store', [ProjectController::class, 'storeAuditDetail'])->name('projects.audit.detail.store');
+    Route::get('/projects/{id_project}/audit/{id}', [ProjectController::class, 'auditProject'])->name('projects.audit.detail');
+    Route::post('/projects/{id_project}/audit/store/{id}', [ProjectController::class, 'storeAuditDetail'])->name('projects.audit.detail.store');
 
 
 

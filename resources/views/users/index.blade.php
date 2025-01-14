@@ -26,6 +26,8 @@
                                     <th class="text-uppercase text-secondary text-sm font-weight-bolder">
                                         Name</th>
                                     <th class="text-uppercase text-secondary text-sm font-weight-bolder">
+                                        Email</th>
+                                    <th class="text-uppercase text-secondary text-sm font-weight-bolder">
                                         Role</th>
                                     <th class="text-uppercase text-secondary text-sm font-weight-bolder">
                                         Action</th>
@@ -37,6 +39,11 @@
                                         <td>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $user->email }}</h6>
                                             </div>
                                         </td>
                                         <td>
