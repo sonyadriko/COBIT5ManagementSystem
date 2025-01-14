@@ -4,8 +4,8 @@ Welcome to the **COBIT5 Management System**! This project is a comprehensive sys
 
 ## 🚀 Features
 
-- **User Authentication** 🔐: Secure login system using Auth0.
-- **Role-based Access** 🎭: Differentiated permissions for Admins and Principals.
+- **User Authentication** 🔐: Secure login system using laravel breeze.
+- **Role-based Access** 🎭: Differentiated permissions for Admins and Auditors.
 - **Comprehensive Management** 🧑‍💼: Tools for managing COBIT 5 processes effectively.
 - **Reporting** 📑: Real-time performance and compliance reporting.
 - **Audit Trails** 🕵️‍♂️: Keep track of actions for compliance purposes.
