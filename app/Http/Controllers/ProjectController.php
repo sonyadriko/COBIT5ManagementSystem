@@ -206,7 +206,7 @@ class ProjectController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Audit updated successfully. Level increased.',
-                    'redirect' => 'reload' // Tanda untuk reload halaman
+                    'redirect' => 'window.reload' // Tanda untuk reload halaman
                 ], 200);
             } else {
                 // Jika sudah di level maksimum

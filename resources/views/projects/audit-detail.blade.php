@@ -186,12 +186,12 @@
                             localStorage.clear(); // Clear localStorage
                             $('#auditForm').find('input[type=checkbox]').prop('checked', false);
                             // Periksa apakah perlu reload atau redirect
-                            if (response.redirect) {
-                                // Jika ada URL redirect yang disediakan
+                            if (response.redirect === 'window.reload') {
+                                // Jika redirect adalah instruksi untuk reload
+                                window.location.reload();
+                            } else if (response.redirect) {
+                                // Jika redirect adalah URL
                                 window.location.href = response.redirect;
-                            } else {
-                                // Reload halaman jika tidak ada redirect URL
-                                location.reload();
                             }
                         } else {
                             alert('Error: ' + response.message);
