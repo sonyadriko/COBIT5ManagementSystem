@@ -71,9 +71,51 @@
                     @endforeach
                     <tr>
                         <td colspan="3"><strong>Overall Governance Level:</strong></td>
-                        <td><strong>{{ $capability_level }}</strong></td>
+                        <td><strong>{{ round($capability_level) }}</strong></td>
                     </tr>
+
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Keterangan: </td>
+                        <td colspan="2">
+                            @php
+                                $descriptions = [
+                                    0 => [
+                                        'title' => 'Sangat Kurang',
+                                        'details' => 'Proses tidak berjalan atau tidak mencapai tujuannya. Tidak ada bukti pelaksanaan proses yang efektif.'
+                                    ],
+                                    1 => [
+                                        'title' => 'Kurang',
+                                        'details' => 'Proses telah dilakukan tetapi tidak terkelola dengan baik. Tidak ada dokumentasi atau standarisasi yang jelas.'
+                                    ],
+                                    2 => [
+                                        'title' => 'Cukup',
+                                        'details' => 'Proses sudah mulai direncanakan, dikelola, dan dikendalikan. Dokumentasi dan pengukuran kinerja mulai diterapkan.'
+                                    ],
+                                    3 => [
+                                        'title' => 'Baik',
+                                        'details' => 'Proses telah distandarisasi dan diterapkan secara konsisten. Ada pendekatan formal dalam pengelolaan dan dokumentasi proses.'
+                                    ],
+                                    4 => [
+                                        'title' => 'Sangat Baik',
+                                        'details' => 'Proses sudah dapat diprediksi dengan baik dan memiliki kontrol yang kuat. Performa proses diukur dan dianalisis secara konsisten.'
+                                    ],
+                                    5 => [
+                                        'title' => 'Sempurna',
+                                        'details' => 'Proses terus-menerus diperbaiki melalui inovasi dan evaluasi berkelanjutan. Fokus pada efisiensi dan peningkatan kualitas secara terus-menerus.'
+                                    ],
+                                ];
+
+                                $roundedLevel = round($capability_level);
+                                $keterangan = $descriptions[$roundedLevel] ?? ['title' => '-', 'details' => '-'];
+                            @endphp
+                            <strong>{{ $keterangan['title'] }}</strong><br>
+                            {{ $keterangan['details'] }}
+                        </td>
+                    </tr>
+                </tfoot>
+
             </table>
         </div>
 
